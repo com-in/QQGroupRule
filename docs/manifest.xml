@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+          xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+          xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+          xsi:type="TaskPaneApp">
+
+  <!-- 基本信息 -->
+  <Id>361a40d3-50e6-4e6a-831b-682700b5f2a7</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>PowerPoint Drawing Tool</ProviderName>
+  <DefaultLocale>zh-CN</DefaultLocale>
+  <DisplayName DefaultValue="PPT绘图工具" />
+  <Description DefaultValue="在幻灯片放映时提供绘图功能，包括箭头、画笔、橡皮等工具" />
+  <IconUrl DefaultValue="https://via.placeholder.com/32x32" />
+  <HighResolutionIconUrl DefaultValue="https://via.placeholder.com/64x64" />
+  <SupportUrl DefaultValue="https://example.com/support" />
+  <AppDomains>
+    <AppDomain>https://example.com</AppDomain>
+    <AppDomain>https://localhost:3000</AppDomain>
+  </AppDomains>
+
+  <!-- 主机 -->
+  <Hosts>
+    <Host Name="Presentation" />
+  </Hosts>
+
+  <!-- 要求 -->
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="Presentation" MinVersion="1.1" />
+    </Sets>
+  </Requirements>
+
+  <!-- 表单设置 -->
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/index.html" />
+  </DefaultSettings>
+
+  <!-- 权限 -->
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <!-- 版本覆盖 -->
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Presentation">
+        <DesktopFormFactor>
+          <!-- 任务窗格 -->
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <CustomTab id="CustomTab">
+              <Group id="DrawingToolsGroup">
+                <Label resid="GroupLabel" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16" />
+                  <bt:Image size="32" resid="Icon.32x32" />
+                  <bt:Image size="80" resid="Icon.80x80" />
+                </Icon>
+                <Control xsi:type="Button" id="TaskPaneButton">
+                  <Label resid="TaskPaneButton.Label" />
+                  <Supertip>
+                    <Title resid="TaskPaneButton.Label" />
+                    <Description resid="TaskPaneButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16" />
+                    <bt:Image size="32" resid="Icon.32x32" />
+                    <bt:Image size="80" resid="Icon.80x80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+              <Label resid="CustomTab.Label" />
+            </CustomTab>
+          </ExtensionPoint>
+          <!-- 幻灯片放映扩展 -->
+          <ExtensionPoint xsi:type="SlideShow">
+            <Script>RESID:Taskpane.Url</Script>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <!-- 资源 -->
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://via.placeholder.com/16x16" />
+        <bt:Image id="Icon.32x32" DefaultValue="https://via.placeholder.com/32x32" />
+        <bt:Image id="Icon.80x80" DefaultValue="https://via.placeholder.com/80x80" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/index.html" />
+        <bt:Url id="Functions.Script.Url" DefaultValue="https://localhost:3000/script.js" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="CustomTab.Label" DefaultValue="绘图工具" />
+        <bt:String id="GroupLabel" DefaultValue="绘图工具" />
+        <bt:String id="TaskPaneButton.Label" DefaultValue="绘图工具" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="TaskPaneButton.Tooltip" DefaultValue="打开绘图工具面板" />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+
+  <!-- WPS 兼容性配置 -->
+  <WPSExtensionPoints>
+    <ExtensionPoint Type="SlideShow">
+      <Url>https://localhost:3000/index.html</Url>
+    </ExtensionPoint>
+  </WPSExtensionPoints>
+</OfficeApp>
